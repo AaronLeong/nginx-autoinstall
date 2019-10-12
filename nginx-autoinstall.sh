@@ -45,7 +45,8 @@ if [[ "$HEADLESS" != "y" ]]; then
 	echo "   1) Install or update Nginx"
 	echo "   2) Uninstall Nginx"
 	echo "   3) Update the script"
-	echo "   4) Exit"
+	echo "   4) update nginx config(conf.d)"
+	echo "   5) Exit"
 	echo ""
 	while [[ $OPTION !=  "1" && $OPTION != "2" && $OPTION != "3" && $OPTION != "4" ]]; do
 		read -p "Select an option [1-4]: " OPTION
@@ -357,6 +358,7 @@ case $OPTION in
 			mkdir -p /etc/nginx/conf.d
 		fi
 
+
 		# Restart Nginx
 		systemctl restart nginx
 
@@ -424,8 +426,24 @@ case $OPTION in
 		./nginx-autoinstall.sh
 		exit
 	;;
+	4) # Update the config
+		# wget https://raw.githubusercontent.com/Angristan/nginx-autoinstall/master/nginx-autoinstall.sh -O nginx-autoinstall.sh
+		git pull
+		# chmod +x nginx-autoinstall.sh
+		echo ""
+		echo "Update config done."
+		mv ./conf/conf.d/* /etc/nginx/conf.d/
+		sleep 2
+
+		systemctl restart nginx
+		# ./nginx-autoinstall.sh
+
+		exit
+	;;
 	*) # Exit
 		exit
 	;;
+
+
 
 esac
