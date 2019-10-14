@@ -428,11 +428,12 @@ case $OPTION in
 	;;
 	4) # Update the config
 		# wget https://raw.githubusercontent.com/Angristan/nginx-autoinstall/master/nginx-autoinstall.sh -O nginx-autoinstall.sh
+		echo "git pull"
 		git pull
 		# chmod +x nginx-autoinstall.sh
-		echo ""
-		echo "Update config done."
+		echo "pull done."
 		mv ./conf/conf.d/* /etc/nginx/conf.d/
+		echo "Update config done."
 		sleep 2
 
 		systemctl restart nginx
